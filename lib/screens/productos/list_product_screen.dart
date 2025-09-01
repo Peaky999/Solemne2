@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:marketsmart/widgets/tarjetaproducto_widget.dart';
+import 'package:marketsmart/services/services.dart';
+import 'package:marketsmart/widgets/widgets.dart';
+import 'package:provider/provider.dart';
+
 
 class ListProductScreen extends StatelessWidget {
   const ListProductScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final product = [
-      'Producto 1',
-      'Producto 2',
-      'Producto 3',
-      'Producto 4',
-      'Producto 5',
-    ];
+    final productoServices = Provider.of<ProductoServices>(context);
+    //if (productoServices.isLoading = true) return LoadingScreen();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Listado de productos'),
@@ -25,16 +23,16 @@ class ListProductScreen extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-        itemCount: product.length,
+        itemCount: productoServices.products.length,
         itemBuilder: (BuildContext context, index) => GestureDetector(
           onTap: () {
             Navigator.pushNamed(context, 'edit_product');
           },
           child: TarjetaProducto(
-            imagenUrl: 'imagenProductoServicio',
-            nombre: 'nombreProductoSevicio',
-            sku: 'skuProductoServicio',
-            precio: 000, //precio de producto servicio
+            imagenUrl: productoServices.products[index].productImage,
+            nombre: productoServices.products[index].productName,
+            sku: productoServices.products[index].productId,
+            precio: productoServices.products[index].productPrice
           ), //informacion de producto
         ),
       ),

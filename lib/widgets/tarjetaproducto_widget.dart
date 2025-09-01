@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TarjetaProducto extends StatelessWidget {
   final String imagenUrl;
   final String nombre;
-  final String sku;
-  final double precio;
+  final int sku;
+  final int precio;
 
   const TarjetaProducto({
     super.key,
@@ -31,7 +31,7 @@ class TarjetaProducto extends StatelessWidget {
               // Imagen del producto
               AspectRatio(
                 aspectRatio: 16 / 9,
-                child: Image.asset(
+                child: Image.network(
                   imagenUrl,
                   fit: BoxFit.cover,
                 ),

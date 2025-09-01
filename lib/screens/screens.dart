@@ -1,3 +1,4 @@
+export 'package:marketsmart/screens/loading_screen.dart';
 export 'package:marketsmart/screens/categorias/create_category_screen.dart';
 export 'package:marketsmart/screens/categorias/edit_category_screen.dart';
 export 'package:marketsmart/screens/categorias/list_category_screen.dart';
