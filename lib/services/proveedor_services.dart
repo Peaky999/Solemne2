@@ -12,18 +12,18 @@ class ProveedorServices extends ChangeNotifier {
   bool isLoading = true;
 
   ProveedorServices() {
-    loadProducts();
+    loadProviders();
   }
 
-  loadProducts() async {
+  loadProviders() async {
     isLoading = true;
     notifyListeners();
     final url = Uri.http(_baseUrl, 'ejemplos/provider_list_rest/');
     String basicAuth = 'Basic ' + base64Encode(utf8.encode('$_user:$_pass'));
     final response = await http.get(url, headers: {'authorization': basicAuth});
     print(response.body);
-    final productMap = Proveedor.fromJson(response.body);
-    provider = productMap.listado;
+    final providerMap = Proveedor.fromJson(response.body);
+    provider = providerMap.listado;
     isLoading = false;
     notifyListeners();
   }

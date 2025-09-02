@@ -10,11 +10,11 @@ class Proveedor {
   String toJson() => json.encode(toMap());
 
   factory Proveedor.fromMap(Map<String, dynamic> json) => Proveedor(
-    listado: List<Listado>.from(json["Listado"].map((x) => Listado.fromMap(x))),
+    listado: List<Listado>.from(json["Proveedores Listado"].map((x) => Listado.fromMap(x))),
   );
 
   Map<String, dynamic> toMap() => {
-    "Listado": List<dynamic>.from(listado.map((x) => x.toMap())),
+    "Proveedores Listado": List<dynamic>.from(listado.map((x) => x.toMap())),
   };
 }
 
@@ -38,7 +38,7 @@ class Listado {
   String toJson() => json.encode(toMap());
 
   factory Listado.fromMap(Map<String, dynamic> json) => Listado(
-    providerId: json["provider_id"],
+    providerId: json["providerid"],
     providerName: json["provider_name"],
     providerLastName: json["provider_last_name"],
     providerMail: json["provider_mail"],
@@ -46,7 +46,7 @@ class Listado {
   );
 
   Map<String, dynamic> toMap() => {
-    "provider_id": providerId,
+    "providerid": providerId,
     "provider_name": providerName,
     "provider_last_name": providerLastName,
     "provider_mail": providerMail,

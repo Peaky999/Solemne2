@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:marketsmart/services/services.dart';
+import 'package:provider/provider.dart';
 import 'package:marketsmart/widgets/widgets.dart';
 
 
@@ -7,10 +10,7 @@ class ListProviderScreen extends StatelessWidget {
   const ListProviderScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final provider = [
-      'Proveedor 1',
-      
-    ];
+    final proveedorServices = Provider.of<ProveedorServices>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Listado de Proveedores'),
@@ -24,22 +24,18 @@ class ListProviderScreen extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-        itemCount: provider.length,
+        itemCount: proveedorServices.provider.length,
         itemBuilder: (BuildContext context, index) => GestureDetector(
           onTap: () {
-            Navigator.pushNamed(context, 'edit_provider');
+            Navigator.pushNamed(context, 'edit_product');
           },
-          child: TarjetaproveedorWidget(
-            title: provider[index],
-            editable: false,
-            idProveedorController: TextEditingController(
-              text: 'CAT-${index + 1}',
-            ),
-            nameController: TextEditingController(text: provider[index]),
-            lastNameController: TextEditingController(text: "LastName"),
-            mailController: TextEditingController(text: "mail"),
-            stateController: TextEditingController(text: 'Activa'),
-          ), //informacion de producto
+          child: TarjetaProveedor(
+            providerId: proveedorServices.provider[index].providerId ,
+            name: proveedorServices.provider[index].providerName,
+            lastName: proveedorServices.provider[index].providerLastName,
+            mail: proveedorServices.provider[index].providerMail ,
+            state: proveedorServices.provider[index].providerState 
+          ),
         ),
       ),
     );

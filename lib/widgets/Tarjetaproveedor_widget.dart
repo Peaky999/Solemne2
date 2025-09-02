@@ -1,110 +1,86 @@
 import 'package:flutter/material.dart';
 
-class TarjetaproveedorWidget extends StatelessWidget {
-  final String title;
-  final TextEditingController idProveedorController;
-  final TextEditingController nameController;
-  final TextEditingController lastNameController;
-  final TextEditingController mailController;
-  final TextEditingController stateController;
-  final bool editable;
+class TarjetaProveedor extends StatelessWidget {
+  final int providerId;
+  final String name;
+  final String lastName;
+  final String mail;
+  final String state;
 
-  const TarjetaproveedorWidget({
+  const TarjetaProveedor({
     super.key,
-    required this.title,
-    required this.idProveedorController,
-    required this.nameController,
-    required this.lastNameController,
-    required this.mailController,
-    required this.stateController,
-    this.editable = false,
+    required this.providerId,
+    required this.name,
+    required this.lastName,
+    required this.mail,
+    required this.state
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
-            ),
-            const SizedBox(height: 16),
-            _buildInputRow('ID Proveedor', idProveedorController),
-            _buildInputRow('Nombre', nameController),
-            _buildInputRow('Apellido', lastNameController),
-            _buildInputRow('Correo', mailController),
-            _buildInputRow('Estado', stateController),
-            const SizedBox(height: 24),
-            if (editable)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      debugPrint(
-                        'Guardar proveedor: ${nameController.text} ${lastNameController.text}, ${mailController.text}, Estado: ${stateController.text}',
-                      );
-                    },
-                    icon: const Icon(Icons.save, color: Colors.white),
-                    label: const Text('Guardar',
-                        style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(150, 0, 0, 1),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      debugPrint(
-                        'Eliminar proveedor: ${idProveedorController.text}',
-                      );
-                    },
-                    icon: const Icon(Icons.delete, color: Colors.white),
-                    label: const Text('Eliminar',
-                        style: TextStyle(color: Colors.white)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(150, 0, 0, 1),
-                    ),
-                  ),
-                ],
-              ),
-          ],
-        ),
-      ),
-    );
-  }
+    const Color colorCard = Color.fromRGBO(150, 0, 0, 1);
 
-  Widget _buildInputRow(String label, TextEditingController controller) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      elevation: 6,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
         children: [
-          SizedBox(
-            width: 120,
-            child: Text(label,
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-          ),
-          const SizedBox(width: 12),
-          Expanded(
-            child: TextField(
-              controller: controller,
-              readOnly: !editable,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                isDense: true,
-                contentPadding:
-                    EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Container(
+                color: colorCard,
+                padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      providerId.toString(),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Nombre: $name',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    Text(
+                      'Apellido: $lastName',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    Text(
+                      'Email: $mail',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                    Text(
+                      'Estado: $state',
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 12,
+                        letterSpacing: 0.5,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+            ],
           ),
         ],
       ),
