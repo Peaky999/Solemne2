@@ -1,19 +1,31 @@
 import 'package:flutter/material.dart';
 
-class TarjetacategoriaWidget extends StatelessWidget {
+class TarjetaproveedorcreateWidget extends StatelessWidget {
   final String title;
-  final TextEditingController idCategoriaController;
   final TextEditingController nameController;
+  final TextEditingController lastNameController;
+  final TextEditingController mailController;
   final TextEditingController stateController;
   final bool editable;
+  final void Function(
+    String nombre,
+    String lastName,
+    String mail,
+    String estado,
+  )?
+  onSave;
+  final VoidCallback? onDelete;
 
-  const TarjetacategoriaWidget({
+  const TarjetaproveedorcreateWidget({
     super.key,
     required this.title,
-    required this.idCategoriaController,
     required this.nameController,
+    required this.lastNameController,
+    required this.mailController,
     required this.stateController,
     this.editable = false,
+    this.onSave,
+    this.onDelete,
   });
 
   @override
@@ -34,36 +46,17 @@ class TarjetacategoriaWidget extends StatelessWidget {
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            _buildInputRow('ID Categoría', idCategoriaController),
             _buildInputRow('Nombre', nameController),
+            _buildInputRow('Apellido', lastNameController),
+            _buildInputRow('Correo', mailController),
             _buildInputRow('Estado', stateController),
             const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (editable) ...[
+            if (editable)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
                   ElevatedButton.icon(
-                    onPressed: () {
-                      debugPrint(
-                        'Guardar categoría: ${nameController.text}, Estado: ${stateController.text}',
-                      );
-                    },
-                    icon: const Icon(Icons.save, color: Colors.white),
-                    label: const Text(
-                      'Guardar',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(150, 0, 0, 1),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      debugPrint(
-                        'Eliminar categoría: ${idCategoriaController.text}',
-                      );
-                    },
+                    onPressed: onDelete,
                     icon: const Icon(Icons.delete, color: Colors.white),
                     label: const Text(
                       'Eliminar',
@@ -73,9 +66,28 @@ class TarjetacategoriaWidget extends StatelessWidget {
                       backgroundColor: const Color.fromRGBO(150, 0, 0, 1),
                     ),
                   ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      if (onSave != null) {
+                        onSave!(
+                          nameController.text,
+                          lastNameController.text,
+                          mailController.text,
+                          stateController.text,
+                        );
+                      }
+                    },
+                    icon: const Icon(Icons.add, color: Colors.white),
+                    label: const Text(
+                      'Guardar',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromRGBO(150, 0, 0, 1),
+                    ),
+                  ),
                 ],
-              ],
-            ),
+              ),
           ],
         ),
       ),

@@ -23,20 +23,20 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         children: const [
           TarjetamenuWidget(
-            rutaRedireccion: 'list_provider', //redirigir a CRUD PROVEEDORES
-            imagenUrl: 'assets/img/proveedores.webp',
+            rutaRedireccion: 'list_provider',
+            imagenUrl: 'lib/assets/proveedores.webp',
             titulo:
                 'Proveedores',            
           ),
           TarjetamenuWidget(
-            rutaRedireccion: 'list_category', //redirigir a CRUD CATEGORIAS
-            imagenUrl: 'assets/img/categoria.webp',
+            rutaRedireccion: 'list_category', 
+            imagenUrl: 'lib/assets/categoria.webp',
             titulo:
                 'Categorias',            
           ),
           TarjetamenuWidget(
-            rutaRedireccion: 'list_product', //redirigir a CRUD PRODUCTOS
-            imagenUrl: 'assets/img/productos.jpg',
+            rutaRedireccion: 'list_product', 
+            imagenUrl: 'lib/assets/productos.jpg',
             titulo:
                 'Productos',            
           ),

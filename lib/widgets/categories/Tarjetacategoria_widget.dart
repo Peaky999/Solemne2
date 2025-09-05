@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
-class TarjetacategoriacreateWidget extends StatelessWidget {
+class TarjetacategoriaWidget extends StatelessWidget {
   final String title;
+  final TextEditingController idCategoriaController;
   final TextEditingController nameController;
   final TextEditingController stateController;
   final bool editable;
+  final VoidCallback? onDelete;
 
-  const TarjetacategoriacreateWidget({
+  const TarjetacategoriaWidget({
     super.key,
     required this.title,
+    required this.idCategoriaController,
     required this.nameController,
     required this.stateController,
     this.editable = false,
+    this.onDelete,
   });
 
   @override
@@ -32,19 +36,21 @@ class TarjetacategoriacreateWidget extends StatelessWidget {
               ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+            _buildInputRow('ID Categoría', idCategoriaController),
             _buildInputRow('Nombre', nameController),
             _buildInputRow('Estado', stateController),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                ElevatedButton.icon(
+                if (editable) ...[
+                  ElevatedButton.icon(
                     onPressed: () {
                       debugPrint(
                         'Guardar categoría: ${nameController.text}, Estado: ${stateController.text}',
                       );
                     },
-                    icon: const Icon(Icons.add, color: Colors.white),
+                    icon: const Icon(Icons.save, color: Colors.white),
                     label: const Text(
                       'Guardar',
                       style: TextStyle(color: Colors.white),
@@ -53,6 +59,7 @@ class TarjetacategoriacreateWidget extends StatelessWidget {
                       backgroundColor: const Color.fromRGBO(150, 0, 0, 1),
                     ),
                   ),
+                ],
               ],
             ),
           ],

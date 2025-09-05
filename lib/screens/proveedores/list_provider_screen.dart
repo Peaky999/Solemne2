@@ -1,42 +1,56 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:marketsmart/services/services.dart';
-import 'package:provider/provider.dart';
 import 'package:marketsmart/widgets/widgets.dart';
-
-
+import 'package:provider/provider.dart';
 
 class ListProviderScreen extends StatelessWidget {
   const ListProviderScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    final proveedorServices = Provider.of<ProveedorServices>(context);
+    final providerServices = Provider.of<ProveedorServices>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Listado de Proveedores'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              'home',
+              (route) => false,
+            );
+          },
+        ),
+        title: const Text('Proveedores'),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pop(context);
+              Navigator.pushNamed(context, 'create_provider');
             },
-            icon: Icon(Icons.logout),
+            icon: const Icon(Icons.add),
+            tooltip: 'Agregar proveedor',
           ),
         ],
       ),
       body: ListView.builder(
-        itemCount: proveedorServices.provider.length,
-        itemBuilder: (BuildContext context, index) => GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, 'edit_product');
+        itemCount: providerServices.providers.length,
+        itemBuilder: (BuildContext context, index) {
+          final proveedor = providerServices.providers[index];
+          return GestureDetector(
+            onTap: () {
+            providerServices.selectedProvider = providerServices.providers[index]
+                .copy();
+            Navigator.pushNamed(context, 'edit_provider');
           },
-          child: TarjetaProveedor(
-            providerId: proveedorServices.provider[index].providerId ,
-            name: proveedorServices.provider[index].providerName,
-            lastName: proveedorServices.provider[index].providerLastName,
-            mail: proveedorServices.provider[index].providerMail ,
-            state: proveedorServices.provider[index].providerState 
-          ),
-        ),
+            child: TarjetaProveedor(
+              editable: false,
+              providerId: providerServices.providers[index].providerId,
+              name: providerServices.providers[index].providerName,
+              lastName: providerServices.providers[index].providerLastName,
+              mail: providerServices.providers[index].providerMail,
+              state: providerServices.providers[index].providerState,
+            ),
+          );
+        },
       ),
     );
   }

@@ -10,11 +10,20 @@ class ListCategoryScreen extends StatelessWidget {
     final categoriaServices = Provider.of<CategoriaServices>(context);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              'home',
+              (route) => false,
+            );
+          },
+        ),
         title: const Text('Categorías'),
         actions: [
           IconButton(
             onPressed: () {
-              // Acción para agregar nueva categoría
               Navigator.pushNamed(context, 'create_category');
             },
             icon: const Icon(Icons.add),
@@ -23,22 +32,24 @@ class ListCategoryScreen extends StatelessWidget {
         ],
       ),
       body: ListView.builder(
-        itemCount: categoriaServices.category.length,
+        itemCount: categoriaServices.categories.length,
         itemBuilder: (BuildContext context, index) => GestureDetector(
           onTap: () {
+            categoriaServices.selectedCategory = categoriaServices.categories[index]
+                .copy();
             Navigator.pushNamed(context, 'edit_category');
           },
           child: TarjetacategoriaWidget(
-            title: categoriaServices.category[index].categorytName,
+            title: categoriaServices.categories[index].categorytName,
             editable: false,
             idCategoriaController: TextEditingController(
-              text: categoriaServices.category[index].categorytId.toString(),
+              text: categoriaServices.categories[index].categorytId.toString(),
             ),
             nameController: TextEditingController(
-              text: categoriaServices.category[index].categorytName,
+              text: categoriaServices.categories[index].categorytName,
             ),
             stateController: TextEditingController(
-              text: categoriaServices.category[index].categorytState,
+              text: categoriaServices.categories[index].categorytState,
             ),
           ),
         ),

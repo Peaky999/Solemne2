@@ -6,6 +6,7 @@ class TarjetaProveedor extends StatelessWidget {
   final String lastName;
   final String mail;
   final String state;
+  final bool editable;
 
   const TarjetaProveedor({
     super.key,
@@ -13,7 +14,8 @@ class TarjetaProveedor extends StatelessWidget {
     required this.name,
     required this.lastName,
     required this.mail,
-    required this.state
+    required this.state,
+    this.editable = false,
   });
 
   @override
@@ -37,7 +39,7 @@ class TarjetaProveedor extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      providerId.toString(),
+                      'Id: $providerId',
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 18,
