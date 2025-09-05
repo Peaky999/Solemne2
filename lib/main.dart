@@ -14,7 +14,8 @@ class AppState extends StatelessWidget{
     return MultiProvider(providers: [
       ChangeNotifierProvider(create: (_) => ProductoServices()),
       ChangeNotifierProvider(create: (_) => CategoriaServices()),
-      ChangeNotifierProvider(create: (_) => ProveedorServices())
+      ChangeNotifierProvider(create: (_) => ProveedorServices()),
+      ChangeNotifierProvider(create:  (_) => AuthServices())
     ],
     child: MarketSmartApp() ,);
   }}
